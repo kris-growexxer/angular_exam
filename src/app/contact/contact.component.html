@@ -1,0 +1,49 @@
+<h1 class="text-center mt-3 mb-3" >Contacts</h1>
+<table class="table table-bordered">
+  <thead>
+  <tr class="text-center">
+    <th scope="col">Id</th>
+    <th scope="col">Name</th>
+    <th scope="col">Phone</th>
+    <th scope="col">Email</th>
+    <th scope="col">Gender</th>
+    <th scope="col">BirthDate</th>
+    <th scope="col">Age</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+
+  <tbody class="text-center">
+  <tr *ngFor="let contact of contacts;let i=index">
+    <td>{{i+1}}</td>
+    <td>{{contact.name | uppercase}}</td>
+    <td>
+      <ng-container *ngIf="isEditingMode && editIndex==i; else editPhone" > <input type="text" class="form-control" [(ngModel)]="contacts[i].phone" required></ng-container>
+      <ng-template #editPhone>
+        {{contact.phone}}
+      </ng-template>
+    </td>
+    <td>
+      <ng-container *ngIf="isEditingMode && editIndex==i; else editEmail" ><input type="text" class="form-control" [(ngModel)]="contacts[i].email" required email></ng-container>
+      <ng-template #editEmail>
+        {{contact.email}}
+      </ng-template>
+
+    </td>
+    <td [genderStyle]="contact.gender">{{contact.gender}}</td>
+    <td>{{contact.birthDate | date:'dd MMM y'}}</td>
+    <td>{{contact.birthDate | age}}</td>
+    <td class="text-center">
+      <button class="btn btn-success" type="button" *ngIf="!isEditingMode" (click)="doEdit(i)">
+        Edit
+      </button>
+      <button class="btn btn-primary" type="button" *ngIf="isEditingMode" (click)="doUpdate(i)">
+        Update
+      </button>
+      <button type="button" class="btn btn-danger" (click)="onDelete(i)" *ngIf="!isEditingMode">
+        Delete
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>

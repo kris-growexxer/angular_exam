@@ -1,0 +1,14 @@
+.form-container{
+  padding: 30px;
+  max-width: 700px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+}
+
+.btn,.form-group{
+  margin-top:20px;
+}
